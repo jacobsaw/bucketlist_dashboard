@@ -1,0 +1,33 @@
+<li>
+	<ul><a href='#/lists'>Home</a></ul>
+	<ul><button ng-click='signout()'>Logout</button></ul>
+</li>
+
+<h1>Welcome, {{user.name}}</h1>
+
+<form name='listItem' ng-submit='addToList(listItem)'>
+	<input name='title' ng-model='list.title' ng-minlength='5' placeholder='title' required minglen>
+	<input name='description' ng-model='list.description' ng-minlength='10' placeholder='description' required>
+	<select ng-model='list.tagged'>
+		<option ng-repeat='friend in users' ng-if='friend._id!=user._id' value='{{friend._id}}'>{{friend.name}}</option>
+	</select>
+	<input type='submit' value='Add to list'>
+</form>
+
+<div ng-messages='listItem.title.$error'>
+	<p style='color:red' ng-message="minlength">Title must be at least 5 characters</p>
+</div>
+
+<div ng-messages='listItem.description.$error'>
+	<p style='color:red' ng-message="minlength">Description must be at least 10 characters</p>
+</div>
+
+<p>Before I die I want to:</p>
+<div ng-repeat='list in user.list'>
+	<input style='display:inline' type="checkbox" ng-model='list.completed' ng-change='myFunc(list.completed, list)'>
+	<p style='display:inline'>{{list.creator}} | {{list.title}} | {{list.description}} | {{list.date | date : "MMM dd, yyyy"}}</p>
+</div>
+<p>List of other users (click to view profile)</p>
+<div ng-repeat='friend in users'>
+	<a href='#/friend/{{friend._id}}'><p ng-if='friend._id!=user._id'>{{friend.name}}</p></a>
+</div>

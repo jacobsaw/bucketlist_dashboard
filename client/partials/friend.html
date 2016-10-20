@@ -1,0 +1,22 @@
+<li>
+	<ul><a href='#/lists'>Home</a></ul>
+	<ul><button ng-click='signout()'>Logout</button></ul>
+</li>
+
+<h1>{{user.name}}'s Bucket List</h1>
+<h3>Done</h3>
+<div ng-repeat='list in user.list'>
+	
+	<div ng-if='list.completed'>
+		<input style='display:inline' type="checkbox" ng-model='list.completed' disabled>
+		<p>{{list.creator}} | {{list.title}} | {{list.description}} | {{list.date | date : "MMM dd, yyyy"}}</p>
+	</div>
+</div>
+
+<h3>Pending</h3>
+<div ng-repeat='list in user.list'>
+	<div ng-if='!list.completed'>
+	<input style='display:inline' type="checkbox" ng-model='list.completed' disabled>
+	<p>{{list.creator}} | {{list.title}} | {{list.description}} | {{list.date | date : "MMM dd, yyyy"}}</p>
+	</div>
+</div>
